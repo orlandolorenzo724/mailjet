@@ -6,7 +6,8 @@ services:
       - "9090:9090"
     environment:
       - LOG_PATH=/app/logs
-      - MAILJET_API_KEY=your-api-key
-      - MAILJET_SECRET_KEY=your-secret-key
-      - MAILJET_EMAIL=your-email
-      - MAILJET_NAME=your-display-name
+      - MAILJET_API_KEY=fe79718369e69e2be12d72b16364e498
+      - MAILJET_SECRET_KEY=52e8a86e8183ba0e05ecc6ab39045f5d
+      - MAILJET_EMAIL=bnbterracciano@gmail.com
+      - MAILJET_NAME=BNB Terracciano
+      - ALLOWED_ORIGINS=localhost:3000

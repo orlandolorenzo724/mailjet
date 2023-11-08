@@ -15,7 +15,6 @@ spring:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
 
-
 logging:
   file:
     path: ${LOG_PATH:C:/temp}
@@ -25,3 +24,5 @@ mailjet:
   secret-key: ${MAILJET_SECRET_KEY:test}
   email: ${MAILJET_EMAIL:test}
   name: ${MAILJET_NAME:test}
+
+allowed-origins: ${ALLOWED_ORIGINS:216.21.82.19:3000,127.0.0.1}

@@ -1,0 +1,27 @@
+server:
+  port: 9090
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
+
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+  application:
+    name: alert
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+
+logging:
+  file:
+    path: ${LOG_PATH:C:/temp}
+
+mailjet:
+  api-key: ${MAILJET_API_KEY:test}
+  secret-key: ${MAILJET_SECRET_KEY:test}
+  email: ${MAILJET_EMAIL:test}
+  name: ${MAILJET_NAME:test}

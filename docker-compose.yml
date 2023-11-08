@@ -1,0 +1,12 @@
+version: '3'
+services:
+  kreyzon-mailjet-container:
+    image: kreyzon-mailjet
+    ports:
+      - "9090:9090"
+    environment:
+      - LOG_PATH=/app/logs
+      - MAILJET_API_KEY=your-api-key
+      - MAILJET_SECRET_KEY=your-secret-key
+      - MAILJET_EMAIL=your-email
+      - MAILJET_NAME=your-display-name

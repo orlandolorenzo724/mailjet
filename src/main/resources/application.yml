@@ -25,4 +25,4 @@ mailjet:
   email: ${MAILJET_EMAIL:test}
   name: ${MAILJET_NAME:test}
 
-allowed-origins: ${ALLOWED_ORIGINS:216.21.82.19:3000,127.0.0.1}
+allowed-origins: ${ALLOWED_ORIGINS:216.21.82.19:3000}

@@ -52,6 +52,109 @@ The script will perform the following steps:
 
 8. Monitor the script's output for any errors or issues.
 
+## Configure docker-compose.yml for connecting to Mailjet API
+
+In order to connect to Mailjet API, you need to configure some information in the docker-compose.yml file
+
+```yml
+version: '3'
+services:
+  kreyzon-mailjet-container:
+    image: kreyzon-mailjet
+    ports:
+      - "9090:9090"
+    environment:
+      - LOG_PATH=/app/logs
+      - MAILJET_API_KEY=YOUR_MAILJET_API_KEY
+      - MAILJET_SECRET_KEY=YOUR_MAILJET_SECRET_KEY
+      - MAILJET_EMAIL=YOUR_MAILJET_EMAIL
+      - MAILJET_NAME=YOUR_MAILJET_NAME
+```
+
+In the docker-compose.yml file:
+
+- `image`: Specifies the Docker image for your `kreyzon-mailjet` container. Ensure that you've built the Docker image with the correct application code and dependencies before using this.
+
+- `ports`: Maps port 9090 from your container to port 9090 on your host machine. You can change the host port if needed.
+
+- `environment`: This section allows you to set environment variables for your container. Replace the placeholders with your actual Mailjet API key, secret key, email, and name.
+
+   - `MAILJET_API_KEY`: Set this to your Mailjet API key.
+   - `MAILJET_SECRET_KEY`: Set this to your Mailjet secret key.
+   - `MAILJET_EMAIL`: Set this to your Mailjet email address.
+   - `MAILJET_NAME`: Set this to your Mailjet name.
+
+Make sure to replace `YOUR_MAILJET_API_KEY`, `YOUR_MAILJET_SECRET_KEY`, `YOUR_MAILJET_EMAIL`, and `YOUR_MAILJET_NAME` with your actual Mailjet credentials and information.
+
+
+After updating the docker-compose.yml file, you can run docker-compose up -d to start the kreyzon-mailjet container with the specified configuration and environment variables.
+
+## API Endpoint: POST to /kreyzon/api/v1/mailjet
+
+### Description
+This API endpoint allows you to send emails using the Mailjet service. You can send one or more email messages in a single request by providing a list of email requests in the JSON format.
+
+### Request
+- Method: POST
+- URL: `/kreyzon/api/v1/mailjet`
+
+#### Request Body
+The request body should contain a JSON array of email requests. Each email request should have the following fields:
+- `receiver`: The email address of the recipient.
+- `subject`: The subject of the email.
+- `text`: The HTML content of the email message.
+
+Example Request Body:
+```json
+[
+  {
+    "receiver": "email1@hotmail.com",
+    "subject": "Test Subject 1",
+    "text": "<!DOCTYPE html> <!-- HTML content here -->"
+  },
+  {
+    "receiver": "email2@gmail.com",
+    "subject": "Test Subject 2",
+    "text": "<!DOCTYPE html> <!-- HTML content here -->"
+  }
+]
+```
+
+### Response Body
+The response body will look like this, if everything is ok.
+
+```json
+{
+    "status": "OK",
+    "message": "Email sent to all receivers",
+    "data": [
+        {
+            "receiver": "email1@hotmail.com",
+            "subject": "Test Subject 1",
+            "text": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Email Example</title></head><body><table style=\"width:100%; max-width:600px; margin:0 auto; font-family: Arial, sans-serif; border-collapse: collapse;\"><tr><td style=\"background-color:#f2f2f2; padding: 20px; text-align:center;\"><h1>Welcome to Our Newsletter</h1><p>Stay updated with our latest news and offers.</p></td></tr><tr><td style=\"padding: 20px;\"><h2>Featured Article</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p><a href=\"https://example.com/article\" style=\"text-decoration:none; color:#007BFF;\">Read More</a></td></tr><tr><td style=\"background-color:#007BFF; color:#ffffff; text-align:center; padding:10px;\">&copy; 2023 Your Company. All rights reserved.</td></tr></table></body></html>"
+        },
+        {
+            "receiver": "email2@gmail.com",
+            "subject": "Test Subject 1",
+            "text": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Email Example</title></head><body><table style=\"width:100%; max-width:600px; margin:0 auto; font-family: Arial, sans-serif; border-collapse: collapse;\"><tr><td style=\"background-color:#f2f2f2; padding: 20px; text-align:center;\"><h1>Welcome to Our Newsletter</h1><p>Stay updated with our latest news and offers.</p></td></tr><tr><td style=\"padding: 20px;\"><h2>Featured Article</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p><a href=\"https://example.com/article\" style=\"text-decoration:none; color:#007BFF;\">Read More</a></td></tr><tr><td style=\"background-color:#007BFF; color:#ffffff; text-align:center; padding:10px;\">&copy; 2023 Your Company. All rights reserved.</td></tr></table></body></html>"
+        }
+    ]
+}
+```
+
+If some emails (could be all) could not be sent, the response will look like this
+```json
+{
+    "status": "ERROR",
+    "message": "Email not sent to some receivers",
+    "data": [
+        "email1@hotmail.com",
+        "email2@gmail.com"
+    ]
+}
+```
+
+
 ## Notes
 
 - You can customize the script further to meet your specific project requirements.

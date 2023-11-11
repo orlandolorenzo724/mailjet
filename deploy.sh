@@ -30,6 +30,4 @@ docker build -t "kreyzon-mailjet:latest" .
 echo "Maven build and Docker image creation complete."
 echo "Now, you can run Docker Compose to start the application."
 
-# Optional: Provide Docker Compose command for user reference
-echo "To run Docker Compose, execute the following command:"
-echo "docker-compose up -d"
+docker-compose up -d
